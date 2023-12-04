@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { OwnershipOptions } from '../../constants/ownership-options'
 import { latitudeValidator } from '../../../shared/validators/latitude.validator'
 import { longitudeValidator } from '../../../shared/validators/longitude.validator'
+import { SELECT_OPTIONS } from '../../constants/selection-options'
+import { combineLatest, startWith, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-plot-details',
@@ -41,6 +43,7 @@ export class PlotDetailsComponent implements OnInit {
   fb: FormBuilder = inject(FormBuilder)
 
   ownershipOptions = [OwnershipOptions.OWN, OwnershipOptions.RENTAL]
+  selectOptions = SELECT_OPTIONS
 
   plotForm: FormGroup = this.fb.nonNullable.group({
     plotName: ['', [Validators.required]],
@@ -49,11 +52,11 @@ export class PlotDetailsComponent implements OnInit {
     latitude: [null, [Validators.required, latitudeValidator]],
     longitude: [null, [Validators.required, longitudeValidator]],
     unAllowedApplicationsDate: [''],
-    totalSurfaceArea: [''],
-    usedSurface: [],
-    conventionalArea: [],
-    irrigation: [''],
-    conversionStart: [''],
+    totalSurfaceArea: ['', [Validators.pattern(/^\d+$/)]],
+    usedSurface: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+    conventionalArea: ['', [Validators.pattern(/^\d+$/)]],
+    irrigation: ['', [Validators.required]],
+    conversionStart: ['', [Validators.required]],
   })
 
   ngOnInit(): void {
@@ -68,5 +71,20 @@ export class PlotDetailsComponent implements OnInit {
         }
       }
     )
+
+    combineLatest([
+      this.plotForm.controls['usedSurface'].valueChanges,
+      this.plotForm.controls['conventionalArea'].valueChanges.pipe(
+        startWith(0)
+      ),
+    ]).subscribe({
+      next: ([a, b]) => {
+        console.log(Number(a) + Number(b))
+
+        this.plotForm.controls['totalSurfaceArea'].setValue(
+          Number(a) + Number(b)
+        )
+      },
+    })
   }
 }

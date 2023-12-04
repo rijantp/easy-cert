@@ -21,14 +21,22 @@
     </div>
   </div>
 </div> -->
-<mat-stepper
-  class="plot-stepper container"
-  orientation="vertical"
-  linear="true"
-  #stepper
->
-  <mat-step label="Plot details">
-    <app-plot-details></app-plot-details>
+<mat-vertical-stepper class="plot-stepper container" linear #stepper>
+  <mat-step [completed]="plotDetails.plotForm.valid" label="Plot details">
+    <app-plot-details #plotDetails></app-plot-details>
+    <div class="d-flex justify-content-center">
+      <button matStepperPrevious mat-button>back</button>
+      <button
+        [disabled]="!plotDetails.plotForm.valid"
+        matStepperNext
+        mat-stroked-button
+        color="primary"
+        outline="fill"
+        (click)="onNext()"
+      >
+        Next: crop details
+      </button>
+    </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Crop details</ng-template>
@@ -36,4 +44,4 @@
   <mat-step>
     <ng-template matStepLabel>Standards</ng-template>
   </mat-step>
-</mat-stepper>
+</mat-vertical-stepper>
