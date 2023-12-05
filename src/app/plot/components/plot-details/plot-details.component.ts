@@ -73,6 +73,7 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
   })
 
   ngOnInit(): void {
+    this.addOwnershipControls()
     this.getTotalSurfaceArea()
     this.sendFormValidity()
   }

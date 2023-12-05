@@ -41,10 +41,13 @@ export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   cancelSubscription$: Subject<void> = new Subject<void>()
 
+  constructor() {
+    this.cropDetials.push(this.addCropDetails())
+    this.cropDetials.push(this.addCropDetails())
+    this.cropDetials.push(this.addCropDetails())
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.cropDetials.push(this.addCropDetails())
-    this.cropDetials.push(this.addCropDetails())
-    this.cropDetials.push(this.addCropDetails())
     if (changes) {
       if (changes['cropDetailsFormValue'].currentValue) {
         this.preFillFormData(changes['cropDetailsFormValue'].currentValue)

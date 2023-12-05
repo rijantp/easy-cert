@@ -1,12 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core'
+import { EditPlotDetailsComponent } from './edit-plot-details/edit-plot-details.component'
+import { EditCropDetailsComponent } from './edit-crop-details/edit-crop-details.component'
+import { EditStandardsComponent } from './edit-standards/edit-standards.component'
 
 @Component({
   selector: 'app-edit-plot',
   standalone: true,
-  imports: [],
+  imports: [
+    EditPlotDetailsComponent,
+    EditCropDetailsComponent,
+    EditStandardsComponent,
+  ],
   templateUrl: './edit-plot.component.html',
-  styleUrl: './edit-plot.component.scss'
+  styleUrl: './edit-plot.component.scss',
 })
 export class EditPlotComponent {
+  selectedTabSig = signal('Plot details')
+  tabs: string[] = ['Plot details', 'Crop details', 'Standards']
 
+  onTabSelection(tab: string): void {
+    this.selectedTabSig.set(tab)
+  }
 }
