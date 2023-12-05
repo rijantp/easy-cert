@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core'
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core'
 import {
   FormArray,
   FormBuilder,
@@ -8,6 +17,7 @@ import {
 } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { CropDetails } from '../../models/crop-details'
 
 @Component({
   selector: 'app-crop-details',
@@ -16,29 +26,40 @@ import { MatFormFieldModule } from '@angular/material/form-field'
   templateUrl: './crop-details.component.html',
   styleUrl: './crop-details.component.scss',
 })
-export class CropDetailsComponent implements OnInit {
+export class CropDetailsComponent implements OnInit, OnChanges {
   fb: FormBuilder = inject(FormBuilder)
+
+  @Input() cropDetailsFormValue?: CropDetails[]
+
   @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   cropDetailsForm: FormGroup = this.fb.nonNullable.group({
     cropDetails: this.fb.array([]),
   })
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.cropDetials.push(this.addCropDetails())
     this.cropDetials.push(this.addCropDetails())
     this.cropDetials.push(this.addCropDetails())
+    if (changes) {
+      if (changes['cropDetailsFormValue'].currentValue) {
+        this.preFillFormData(changes['cropDetailsFormValue'].currentValue)
+      }
+    }
+  }
 
-    this.cropDetailsForm.statusChanges.pipe().subscribe({
+  ngOnInit(): void {
+    this.cropDetials.at(0).statusChanges.subscribe({
       next: (status: string) => {
         this.statusEvent.emit(status === 'VALID')
+        console.log(status === 'VALID')
       },
     })
   }
 
   addCropDetails(): FormGroup {
     return this.fb.group({
-      seedsUsed: ['', Validators.required],
+      seedsUsed: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       estimatedHarvest: [''],
       harvestPeriod: [''],
     })
@@ -46,5 +67,11 @@ export class CropDetailsComponent implements OnInit {
 
   get cropDetials(): FormArray {
     return this.cropDetailsForm.controls['cropDetails'] as FormArray
+  }
+
+  preFillFormData(formValue: CropDetails[]): void {
+    formValue.forEach((item: CropDetails, index: number) => {
+      this.cropDetials.at(index).setValue(item)
+    })
   }
 }

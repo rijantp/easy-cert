@@ -14,6 +14,8 @@
       (nextStepEvent)="onNextStepper($event)"
       (statusEvent)="isCropsValid = $event"
       class="col-md-9"
+      (formValueEvent)="cropDetialsValue = $event"
+      [cropDetailsFormValue]="cropDetialsValue"
     ></app-add-crop>
     } @case (2) {
     <app-add-standards

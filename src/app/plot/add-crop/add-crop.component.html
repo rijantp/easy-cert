@@ -4,6 +4,7 @@
       <div class="card-body">
         <span>Plot details</span>
         <app-crop-details
+          [cropDetailsFormValue]="cropDetailsFormValue"
           (statusEvent)="statusEvent.emit($event)"
           #cropDetails
         ></app-crop-details>
@@ -14,7 +15,7 @@
     <div class="d-flex justify-content-center">
       <button (click)="navigateStep(0)" mat-button>back</button>
       <button
-        [disabled]="!cropDetails.cropDetailsForm.valid"
+        [disabled]="!cropDetails.cropDetials.at(0).valid"
         mat-stroked-button
         outline="fill"
         (click)="navigateStep(2)"
