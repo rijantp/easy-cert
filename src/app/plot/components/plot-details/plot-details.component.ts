@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core'
@@ -21,7 +22,7 @@ import { OwnershipOptions } from '../../constants/ownership-options'
 import { latitudeValidator } from '../../../shared/validators/latitude.validator'
 import { longitudeValidator } from '../../../shared/validators/longitude.validator'
 import { SELECT_OPTIONS } from '../../constants/selection-options'
-import { combineLatest, startWith, takeUntil } from 'rxjs'
+import { Subject, combineLatest, startWith, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-plot-details',
@@ -39,11 +40,13 @@ import { combineLatest, startWith, takeUntil } from 'rxjs'
   styleUrl: './plot-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlotDetailsComponent implements OnInit {
+export class PlotDetailsComponent implements OnInit, OnDestroy {
   fb: FormBuilder = inject(FormBuilder)
 
   ownershipOptions = [OwnershipOptions.OWN, OwnershipOptions.RENTAL]
   selectOptions = SELECT_OPTIONS
+
+  cancelSubscription$: Subject<void> = new Subject<void>()
 
   plotForm: FormGroup = this.fb.nonNullable.group({
     plotName: ['', [Validators.required]],
@@ -60,31 +63,46 @@ export class PlotDetailsComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.plotForm.controls['ownership'].valueChanges.subscribe(
-      (value: string) => {
-        if (value === OwnershipOptions.RENTAL) {
-          this.plotForm.addControl('contractStart', new FormControl(''))
-          this.plotForm.addControl('contractEnd', new FormControl(''))
-        } else {
-          this.plotForm.removeControl('contractStart')
-          this.plotForm.removeControl('contractEnd')
-        }
-      }
-    )
+    this.addOwnershipControls()
 
+    this.getTotalSurfaceArea()
+  }
+
+  addOwnershipControls(): void {
+    this.plotForm.controls['ownership'].valueChanges
+      .pipe(takeUntil(this.cancelSubscription$))
+      .subscribe({
+        next: (value: string) => {
+          if (value === OwnershipOptions.RENTAL) {
+            this.plotForm.addControl('contractStart', new FormControl(''))
+            this.plotForm.addControl('contractEnd', new FormControl(''))
+          } else {
+            this.plotForm.removeControl('contractStart')
+            this.plotForm.removeControl('contractEnd')
+          }
+        },
+      })
+  }
+
+  getTotalSurfaceArea(): void {
     combineLatest([
       this.plotForm.controls['usedSurface'].valueChanges,
       this.plotForm.controls['conventionalArea'].valueChanges.pipe(
         startWith(0)
       ),
-    ]).subscribe({
-      next: ([a, b]) => {
-        console.log(Number(a) + Number(b))
+    ])
+      .pipe(takeUntil(this.cancelSubscription$))
+      .subscribe({
+        next: ([a, b]) => {
+          this.plotForm.controls['totalSurfaceArea'].setValue(
+            Number(a) + Number(b)
+          )
+        },
+      })
+  }
 
-        this.plotForm.controls['totalSurfaceArea'].setValue(
-          Number(a) + Number(b)
-        )
-      },
-    })
+  ngOnDestroy(): void {
+    this.cancelSubscription$.next()
+    this.cancelSubscription$.complete()
   }
 }

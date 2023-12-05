@@ -1,1 +1,15 @@
-<p>plot works!</p>
+<span class="ms-3">Add plot- Organic Coffee Society</span>
+<div class="container">
+  <div class="row">
+    <app-add-plot
+      (nextStepEvent)="onNextStepper($event)"
+      class="col-md-9"
+    ></app-add-plot>
+
+    <app-plot-stepper
+      [stepperIndex]="stepperIndex"
+      (currentStepperEvent)="stepperIndex = $event"
+      class="col-md-3"
+    ></app-plot-stepper>
+  </div>
+</div>

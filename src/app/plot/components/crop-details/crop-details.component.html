@@ -1,1 +1,24 @@
-<p>crop-details works!</p>
+<form [formGroup]="cropDetailsForm">
+  <ng-container formArrayName="cropDetails">
+    @for (group of cropDetials.controls;track group;let i=$index) {
+    <div class="container mb-5" [formGroupName]="i">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-md-6">
+          <mat-label>Seeds used(kg)</mat-label>
+          <input formControlName="seedsUsed" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-6">
+          <mat-label>Harvest estimation in kg</mat-label>
+          <input formControlName="estimatedHarvest" matInput />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-md-6">
+          <mat-label>Harvest period</mat-label>
+          <input formControlName="harvestPeriod" matInput />
+        </mat-form-field>
+      </div>
+    </div>
+    }
+  </ng-container>
+</form>

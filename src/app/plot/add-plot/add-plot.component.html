@@ -1,47 +1,23 @@
-<span class="ms-3">Add plot- Organic Coffee Society</span>
-<!-- <div class="mt-3 ms-3 container">
+<div class="container">
   <div class="row">
-    <div class="card col-8">
+    <div class="card">
       <div class="card-body">
-        <app-plot-details></app-plot-details>
+        <span>Plot details</span>
+        <app-plot-details #plotDetails></app-plot-details>
       </div>
     </div>
-    <div class="col-4">
-      <mat-stepper orientation="vertical" [linear]="false" #stepper>
-        <mat-step label="Plot details">
-          <ng-template matStepLabel>Plot details</ng-template>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Crop details</ng-template>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Standards</ng-template>
-        </mat-step>
-      </mat-stepper>
-    </div>
   </div>
-</div> -->
-<mat-vertical-stepper class="plot-stepper container" linear #stepper>
-  <mat-step [completed]="plotDetails.plotForm.valid" label="Plot details">
-    <app-plot-details #plotDetails></app-plot-details>
+  <div class="row">
     <div class="d-flex justify-content-center">
-      <button matStepperPrevious mat-button>back</button>
+      <button mat-button>back</button>
       <button
         [disabled]="!plotDetails.plotForm.valid"
-        matStepperNext
         mat-stroked-button
-        color="primary"
         outline="fill"
         (click)="onNext()"
       >
         Next: crop details
       </button>
     </div>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Crop details</ng-template>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Standards</ng-template>
-  </mat-step>
-</mat-vertical-stepper>
+  </div>
+</div>

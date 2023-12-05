@@ -1,1 +1,24 @@
-<p>standards works!</p>
+<form [formGroup]="standardsForm" class="container">
+  <div class="row">
+    <mat-form-field appearance="outline" class="col-md-6">
+      <mat-label>EU organic</mat-label>
+      <mat-select formControlName="euOrganic">
+        @for (item of selectOptions; track item) {
+        <mat-option [value]="item">{{ item }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-6">
+      <mat-label>NOP</mat-label>
+      <mat-select formControlName="nop">
+        @for (item of selectOptions; track item) {
+        <mat-option [value]="item">{{ item }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-6">
+      <mat-label>Other standards</mat-label>
+      <input formControlName="otherStandards" matInput />
+    </mat-form-field>
+  </div>
+</form>
