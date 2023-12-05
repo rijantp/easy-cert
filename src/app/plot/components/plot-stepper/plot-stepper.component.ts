@@ -40,5 +40,10 @@ export class PlotStepperComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     console.log(this.stepper.steps.length, this.stepper.selectedIndex)
+    console.log(this.stepper)
+  }
+
+  onClick(index: number): void {
+    this.currentStepperEvent.emit(index)
   }
 }
