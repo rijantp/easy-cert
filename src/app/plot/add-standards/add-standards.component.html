@@ -5,6 +5,7 @@
         <span>Standards</span>
         <app-standards
           (statusEvent)="statusEvent.emit($event)"
+          [standardsFormValue]="standardsFormValue"
           #standards
         ></app-standards>
       </div>

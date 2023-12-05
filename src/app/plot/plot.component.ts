@@ -6,7 +6,8 @@ import { AddStandardsComponent } from './add-standards/add-standards.component'
 import { PlotStepperComponent } from './components/plot-stepper/plot-stepper.component'
 import { AddPlotComponent } from './add-plot/add-plot.component'
 import { PlotDetails } from './models/plot-details.type'
-import { CropDetails } from './models/crop-details'
+import { CropDetails } from './models/crop-details.type'
+import { StandardDetails } from './models/standards-details.type'
 
 @Component({
   selector: 'app-plot',
@@ -31,10 +32,14 @@ export class PlotComponent {
 
   plotValue?: PlotDetails
   cropDetialsValue?: CropDetails[]
+  standardsValue?: StandardDetails
 
   onNextStepper(index: number): void {
-    console.log(index)
-
     this.stepperIndex = index
+  }
+
+  onSubmit(value: StandardDetails) {
+    this.standardsValue = value
+    alert('submitted')
   }
 }

@@ -17,7 +17,7 @@ import {
 } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { CropDetails } from '../../models/crop-details'
+import { CropDetails } from '../../models/crop-details.type'
 
 @Component({
   selector: 'app-crop-details',

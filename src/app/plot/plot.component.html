@@ -21,6 +21,8 @@
     <app-add-standards
       (nextStepEvent)="onNextStepper($event)"
       (statusEvent)="isStandardsValid = $event"
+      [standardsFormValue]="standardsValue"
+      (formValueEvent)="onSubmit($event)"
       class="col-md-9"
     ></app-add-standards>
     } }

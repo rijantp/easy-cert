@@ -9,7 +9,7 @@ import {
 import { CropDetailsComponent } from '../components/crop-details/crop-details.component'
 
 import { MatButtonModule } from '@angular/material/button'
-import { CropDetails } from '../models/crop-details'
+import { CropDetails } from '../models/crop-details.type'
 
 @Component({
   selector: 'app-add-crop',
