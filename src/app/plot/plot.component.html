@@ -1,12 +1,26 @@
 <span class="ms-3">Add plot- Organic Coffee Society</span>
 <div class="container">
   <div class="row">
+    @switch (stepperIndex) { @case (0) {
     <app-add-plot
       (nextStepEvent)="onNextStepper($event)"
       class="col-md-9"
     ></app-add-plot>
-
+    } @case (1) {
+    <app-add-crop
+      (nextStepEvent)="onNextStepper($event)"
+      class="col-md-9"
+    ></app-add-crop>
+    } @case (2) {
+    <app-add-standards
+      (nextStepEvent)="onNextStepper($event)"
+      class="col-md-9"
+    ></app-add-standards>
+    } }
     <app-plot-stepper
+      [isPlotValid]="isPlotValid$ | async"
+      [iscropsValid]="isCropsValid$ | async"
+      [isStandardsValid]="isStandardsValid$ | async"
       [stepperIndex]="stepperIndex"
       (currentStepperEvent)="stepperIndex = $event"
       class="col-md-3"
