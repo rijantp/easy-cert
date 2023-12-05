@@ -73,12 +73,12 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
   })
 
   ngOnInit(): void {
-    this.addOwnershipControls()
     this.getTotalSurfaceArea()
     this.sendFormValidity()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.addOwnershipControls()
     if (changes) {
       if (changes['plotDetailsFormValue'].currentValue) {
         this.preFillFormData(changes['plotDetailsFormValue'].currentValue)
