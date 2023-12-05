@@ -4,23 +4,26 @@
     @switch (stepperIndex) { @case (0) {
     <app-add-plot
       (nextStepEvent)="onNextStepper($event)"
+      (statusEvent)="isPlotValid = $event"
       class="col-md-9"
     ></app-add-plot>
     } @case (1) {
     <app-add-crop
       (nextStepEvent)="onNextStepper($event)"
+      (statusEvent)="isCropsValid = $event"
       class="col-md-9"
     ></app-add-crop>
     } @case (2) {
     <app-add-standards
       (nextStepEvent)="onNextStepper($event)"
+      (statusEvent)="isStandardsValid = $event"
       class="col-md-9"
     ></app-add-standards>
     } }
     <app-plot-stepper
-      [isPlotValid]="isPlotValid$ | async"
-      [iscropsValid]="isCropsValid$ | async"
-      [isStandardsValid]="isStandardsValid$ | async"
+      [isPlotValid]="isPlotValid"
+      [iscropsValid]="isCropsValid"
+      [isStandardsValid]="isStandardsValid"
       [stepperIndex]="stepperIndex"
       (currentStepperEvent)="stepperIndex = $event"
       class="col-md-3"

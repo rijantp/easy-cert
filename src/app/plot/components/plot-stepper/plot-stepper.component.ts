@@ -24,15 +24,15 @@ export class PlotStepperComponent implements AfterViewInit, OnChanges {
   @Output() currentStepperEvent: EventEmitter<number> =
     new EventEmitter<number>()
 
-  @Input() isPlotValid: boolean | null = false
-  @Input() iscropsValid: boolean | null = false
-  @Input() isStandardsValid: boolean | null = false
+  @Input() isPlotValid: boolean = false
+  @Input() iscropsValid: boolean = false
+  @Input() isStandardsValid: boolean = false
 
   @Input() stepperIndex: number = 0
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (!changes['stepperIndex'].firstChange) {
+      if (changes['stepperIndex'] && !changes['stepperIndex'].firstChange) {
         this.stepper.selectedIndex = changes['stepperIndex'].currentValue
       }
     }

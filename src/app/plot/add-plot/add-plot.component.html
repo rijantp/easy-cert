@@ -3,7 +3,10 @@
     <div class="card">
       <div class="card-body">
         <span>Plot details</span>
-        <app-plot-details #plotDetails></app-plot-details>
+        <app-plot-details
+          (statusEvent)="statusEvent.emit($event)"
+          #plotDetails
+        ></app-plot-details>
       </div>
     </div>
   </div>

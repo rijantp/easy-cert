@@ -3,7 +3,10 @@
     <div class="card">
       <div class="card-body">
         <span>Plot details</span>
-        <app-crop-details #cropDetails></app-crop-details>
+        <app-crop-details
+          (statusEvent)="statusEvent.emit($event)"
+          #cropDetails
+        ></app-crop-details>
       </div>
     </div>
   </div>

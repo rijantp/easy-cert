@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button'
 })
 export class AddPlotComponent {
   @Output() nextStepEvent: EventEmitter<number> = new EventEmitter<number>()
+  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   @ViewChild(PlotDetailsComponent) plotDetailsComponent!: PlotDetailsComponent
 
   onNext(): void {

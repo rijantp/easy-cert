@@ -3,7 +3,10 @@
     <div class="card">
       <div class="card-body">
         <span>Standards</span>
-        <app-standards #standards></app-standards>
+        <app-standards
+          (statusEvent)="statusEvent.emit($event)"
+          #standards
+        ></app-standards>
       </div>
     </div>
   </div>

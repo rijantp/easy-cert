@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core'
 import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -22,9 +29,9 @@ import { SELECT_OPTIONS } from '../../constants/selection-options'
   styleUrl: './standards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StandardsComponent {
+export class StandardsComponent implements OnInit {
   fb: FormBuilder = inject(FormBuilder)
-
+  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   selectOptions = SELECT_OPTIONS
 
   standardsForm: FormGroup = this.fb.nonNullable.group({
@@ -32,4 +39,12 @@ export class StandardsComponent {
     nop: ['', [Validators.required]],
     otherStandards: [''],
   })
+
+  ngOnInit(): void {
+    this.standardsForm.statusChanges.pipe().subscribe({
+      next: (status: string) => {
+        this.statusEvent.emit(status === 'VALID')
+      },
+    })
+  }
 }

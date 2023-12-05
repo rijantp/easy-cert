@@ -18,6 +18,7 @@ import { StandardsComponent } from '../components/standards/standards.component'
 })
 export class AddStandardsComponent {
   @Output() nextStepEvent: EventEmitter<number> = new EventEmitter<number>()
+  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   @ViewChild(StandardsComponent) standardsComponent!: StandardsComponent
 
   goBack(): void {

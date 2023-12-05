@@ -4,6 +4,8 @@ import {
   OnDestroy,
   OnInit,
   inject,
+  Output,
+  EventEmitter,
 } from '@angular/core'
 import {
   FormBuilder,
@@ -43,6 +45,8 @@ import { Subject, combineLatest, startWith, takeUntil } from 'rxjs'
 export class PlotDetailsComponent implements OnInit, OnDestroy {
   fb: FormBuilder = inject(FormBuilder)
 
+  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
+
   ownershipOptions = [OwnershipOptions.OWN, OwnershipOptions.RENTAL]
   selectOptions = SELECT_OPTIONS
 
@@ -66,6 +70,14 @@ export class PlotDetailsComponent implements OnInit, OnDestroy {
     this.addOwnershipControls()
 
     this.getTotalSurfaceArea()
+
+    this.plotForm.statusChanges
+      .pipe(takeUntil(this.cancelSubscription$))
+      .subscribe({
+        next: (status: string) => {
+          this.statusEvent.emit(status === 'VALID')
+        },
+      })
   }
 
   addOwnershipControls(): void {

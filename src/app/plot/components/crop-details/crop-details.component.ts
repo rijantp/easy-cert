@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core'
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core'
 import {
   FormArray,
   FormBuilder,
@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 })
 export class CropDetailsComponent implements OnInit {
   fb: FormBuilder = inject(FormBuilder)
+  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   cropDetailsForm: FormGroup = this.fb.nonNullable.group({
     cropDetails: this.fb.array([]),
@@ -27,6 +28,12 @@ export class CropDetailsComponent implements OnInit {
     this.cropDetials.push(this.addCropDetails())
     this.cropDetials.push(this.addCropDetails())
     this.cropDetials.push(this.addCropDetails())
+
+    this.cropDetailsForm.statusChanges.pipe().subscribe({
+      next: (status: string) => {
+        this.statusEvent.emit(status === 'VALID')
+      },
+    })
   }
 
   addCropDetails(): FormGroup {

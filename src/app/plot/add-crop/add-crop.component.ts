@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button'
 })
 export class AddCropComponent {
   @Output() nextStepEvent: EventEmitter<number> = new EventEmitter<number>()
+  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   @ViewChild(CropDetailsComponent) cropDetailsComponent!: CropDetailsComponent
 
   navigateStep(index: number): void {
