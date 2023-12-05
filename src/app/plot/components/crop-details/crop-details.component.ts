@@ -7,6 +7,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  OnDestroy,
 } from '@angular/core'
 import {
   FormArray,
@@ -18,6 +19,7 @@ import {
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { CropDetails } from '../../models/crop-details.type'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-crop-details',
@@ -26,7 +28,7 @@ import { CropDetails } from '../../models/crop-details.type'
   templateUrl: './crop-details.component.html',
   styleUrl: './crop-details.component.scss',
 })
-export class CropDetailsComponent implements OnInit, OnChanges {
+export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
   fb: FormBuilder = inject(FormBuilder)
 
   @Input() cropDetailsFormValue?: CropDetails[]
@@ -36,6 +38,8 @@ export class CropDetailsComponent implements OnInit, OnChanges {
   cropDetailsForm: FormGroup = this.fb.nonNullable.group({
     cropDetails: this.fb.array([]),
   })
+
+  cancelSubscription$: Subject<void> = new Subject<void>()
 
   ngOnChanges(changes: SimpleChanges): void {
     this.cropDetials.push(this.addCropDetails())
@@ -49,12 +53,15 @@ export class CropDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.cropDetials.at(0).statusChanges.subscribe({
-      next: (status: string) => {
-        this.statusEvent.emit(status === 'VALID')
-        console.log(status === 'VALID')
-      },
-    })
+    this.cropDetials
+      .at(0)
+      .statusChanges.pipe(takeUntil(this.cancelSubscription$))
+      .subscribe({
+        next: (status: string) => {
+          this.statusEvent.emit(status === 'VALID')
+          console.log(status === 'VALID')
+        },
+      })
   }
 
   addCropDetails(): FormGroup {
@@ -73,5 +80,10 @@ export class CropDetailsComponent implements OnInit, OnChanges {
     formValue.forEach((item: CropDetails, index: number) => {
       this.cropDetials.at(index).setValue(item)
     })
+  }
+
+  ngOnDestroy(): void {
+    this.cancelSubscription$.next()
+    this.cancelSubscription$.complete()
   }
 }

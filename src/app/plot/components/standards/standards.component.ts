@@ -8,6 +8,7 @@ import {
   inject,
   OnChanges,
   SimpleChanges,
+  OnDestroy,
 } from '@angular/core'
 import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
@@ -20,6 +21,7 @@ import {
 } from '@angular/forms'
 import { SELECT_OPTIONS } from '../../constants/selection-options'
 import { StandardDetails } from '../../models/standards-details.type'
+import { Subject, takeUntil } from 'rxjs'
 @Component({
   selector: 'app-standards',
   standalone: true,
@@ -33,9 +35,11 @@ import { StandardDetails } from '../../models/standards-details.type'
   styleUrl: './standards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StandardsComponent implements OnInit {
+export class StandardsComponent implements OnInit, OnDestroy {
   fb: FormBuilder = inject(FormBuilder)
   @Input() standardsFormValue?: StandardDetails
+
+  cancelSubscription$: Subject<void> = new Subject<void>()
 
   @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   selectOptions = SELECT_OPTIONS
@@ -55,14 +59,21 @@ export class StandardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.standardsForm.statusChanges.pipe().subscribe({
-      next: (status: string) => {
-        this.statusEvent.emit(status === 'VALID')
-      },
-    })
+    this.standardsForm.statusChanges
+      .pipe(takeUntil(this.cancelSubscription$))
+      .subscribe({
+        next: (status: string) => {
+          this.statusEvent.emit(status === 'VALID')
+        },
+      })
   }
 
   preFillFormData(formValue: StandardDetails): void {
     this.standardsForm.setValue(formValue)
+  }
+
+  ngOnDestroy(): void {
+    this.cancelSubscription$.next()
+    this.cancelSubscription$.complete()
   }
 }
