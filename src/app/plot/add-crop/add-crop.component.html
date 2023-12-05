@@ -1,23 +1,28 @@
 <div class="container">
   <div class="row">
     <div class="card">
-      <div class="card-body">
-        <span>Plot details</span>
-        <app-crop-details
-          [cropDetailsFormValue]="cropDetailsFormValue"
-          (statusEvent)="statusEvent.emit($event)"
-          #cropDetails
-        ></app-crop-details>
+      <div class="card-body container-fluid">
+        <div class="row mb-4">
+          <span>Crop details</span>
+        </div>
+        <div class="row">
+          <app-crop-details
+            class="p-0"
+            [cropDetailsFormValue]="cropDetailsFormValue"
+            (statusEvent)="statusEvent.emit($event)"
+            #cropDetails
+          ></app-crop-details>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="d-flex justify-content-center">
-      <button (click)="navigateStep(0)" mat-button>back</button>
+      <button (click)="navigateStep(0)" mat-button color="primary">back</button>
       <button
         [disabled]="!cropDetails.cropDetials.at(0).valid"
         mat-stroked-button
-        outline="fill"
+        color="accent"
         (click)="navigateStep(2)"
       >
         Add standards
