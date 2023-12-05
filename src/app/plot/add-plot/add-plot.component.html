@@ -6,6 +6,7 @@
         <app-plot-details
           (statusEvent)="statusEvent.emit($event)"
           #plotDetails
+          [plotDetailsFormValue]="plotDetailsFormValue"
         ></app-plot-details>
       </div>
     </div>

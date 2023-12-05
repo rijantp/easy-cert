@@ -5,7 +5,9 @@
     <app-add-plot
       (nextStepEvent)="onNextStepper($event)"
       (statusEvent)="isPlotValid = $event"
+      (formValueEvent)="plotValue = $event"
       class="col-md-9"
+      [plotDetailsFormValue]="plotValue"
     ></app-add-plot>
     } @case (1) {
     <app-add-crop

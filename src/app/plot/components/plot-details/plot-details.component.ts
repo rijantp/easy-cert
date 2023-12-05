@@ -6,6 +6,9 @@ import {
   inject,
   Output,
   EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core'
 import {
   FormBuilder,
@@ -25,6 +28,7 @@ import { latitudeValidator } from '../../../shared/validators/latitude.validator
 import { longitudeValidator } from '../../../shared/validators/longitude.validator'
 import { SELECT_OPTIONS } from '../../constants/selection-options'
 import { Subject, combineLatest, startWith, takeUntil } from 'rxjs'
+import { PlotDetails } from '../../models/plot-details.type'
 
 @Component({
   selector: 'app-plot-details',
@@ -42,8 +46,10 @@ import { Subject, combineLatest, startWith, takeUntil } from 'rxjs'
   styleUrl: './plot-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlotDetailsComponent implements OnInit, OnDestroy {
+export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
   fb: FormBuilder = inject(FormBuilder)
+
+  @Input() plotDetailsFormValue?: PlotDetails
 
   @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
 
@@ -68,16 +74,16 @@ export class PlotDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.addOwnershipControls()
-
     this.getTotalSurfaceArea()
+    this.sendFormValidity()
+  }
 
-    this.plotForm.statusChanges
-      .pipe(takeUntil(this.cancelSubscription$))
-      .subscribe({
-        next: (status: string) => {
-          this.statusEvent.emit(status === 'VALID')
-        },
-      })
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      if (changes['plotDetailsFormValue'].currentValue) {
+        this.preFillFormData(changes['plotDetailsFormValue'].currentValue)
+      }
+    }
   }
 
   addOwnershipControls(): void {
@@ -111,6 +117,20 @@ export class PlotDetailsComponent implements OnInit, OnDestroy {
           )
         },
       })
+  }
+
+  sendFormValidity(): void {
+    this.plotForm.statusChanges
+      .pipe(takeUntil(this.cancelSubscription$))
+      .subscribe({
+        next: (status: string) => {
+          this.statusEvent.emit(status === 'VALID')
+        },
+      })
+  }
+
+  preFillFormData(formValue: PlotDetails): void {
+    this.plotForm.setValue(formValue)
   }
 
   ngOnDestroy(): void {

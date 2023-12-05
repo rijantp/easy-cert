@@ -5,6 +5,7 @@ import { AddCropComponent } from './add-crop/add-crop.component'
 import { AddStandardsComponent } from './add-standards/add-standards.component'
 import { PlotStepperComponent } from './components/plot-stepper/plot-stepper.component'
 import { AddPlotComponent } from './add-plot/add-plot.component'
+import { PlotDetails } from './models/plot-details.type'
 
 @Component({
   selector: 'app-plot',
@@ -26,6 +27,8 @@ export class PlotComponent {
   isPlotValid = false
   isCropsValid = false
   isStandardsValid = false
+
+  plotValue?: PlotDetails
 
   onNextStepper(index: number): void {
     console.log(index)
