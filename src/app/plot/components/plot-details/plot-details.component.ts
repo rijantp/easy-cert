@@ -89,12 +89,14 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.addOwnershipControls()
     if (changes) {
       if (
         changes['plotDetailsFormValue'].currentValue &&
         changes['plotDetailsFormValue'].firstChange
       ) {
+        this.toggleRentalControls(
+          changes['plotDetailsFormValue'].currentValue.ownership
+        )
         this.preFillFormData(changes['plotDetailsFormValue'].currentValue)
       }
     }
@@ -105,15 +107,19 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
       .pipe(takeUntil(this.cancelSubscription$))
       .subscribe({
         next: (value: string) => {
-          if (value === OwnershipOptions.RENTAL) {
-            this.plotForm.addControl('contractStart', new FormControl(''))
-            this.plotForm.addControl('contractEnd', new FormControl(''))
-          } else {
-            this.plotForm.removeControl('contractStart')
-            this.plotForm.removeControl('contractEnd')
-          }
+          this.toggleRentalControls(value)
         },
       })
+  }
+
+  toggleRentalControls(value: string): void {
+    if (value === OwnershipOptions.RENTAL) {
+      this.plotForm.addControl('contractStart', new FormControl(''))
+      this.plotForm.addControl('contractEnd', new FormControl(''))
+    } else {
+      this.plotForm.removeControl('contractStart')
+      this.plotForm.removeControl('contractEnd')
+    }
   }
 
   getTotalSurfaceArea(): void {
