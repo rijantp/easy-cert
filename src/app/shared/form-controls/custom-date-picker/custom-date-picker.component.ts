@@ -3,19 +3,24 @@ import {
   Component,
   Input,
   forwardRef,
+  ViewChild,
+  NgZone,
+  inject,
+  ElementRef,
 } from '@angular/core'
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
   FormsModule,
 } from '@angular/forms'
+import { MatButtonModule } from '@angular/material/button'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   selector: 'app-custom-date-picker',
   standalone: true,
-  imports: [MatDatepickerModule, MatIconModule, FormsModule],
+  imports: [MatDatepickerModule, MatIconModule, FormsModule, MatButtonModule],
   templateUrl: './custom-date-picker.component.html',
   styleUrl: './custom-date-picker.component.scss',
   providers: [
@@ -30,6 +35,10 @@ import { MatIconModule } from '@angular/material/icon'
 export class CustomDatePickerComponent implements ControlValueAccessor {
   @Input() disabled = false
   @Input() placeHolder: string = ''
+
+  zone: NgZone = inject(NgZone)
+
+  @ViewChild('pick', { read: ElementRef }) datePickera!: ElementRef<any>
 
   dateValue?: Date
 
@@ -52,5 +61,11 @@ export class CustomDatePickerComponent implements ControlValueAccessor {
 
   onDateChange(value: Date): void {
     this.onChange(value)
+  }
+
+  openDatePicker(): void {
+    this.zone.runOutsideAngular(() => {
+      this.datePickera.nativeElement.click()
+    })
   }
 }

@@ -2,7 +2,8 @@
     <input [placeholder]="placeHolder" class="form-control" [(ngModel)]="dateValue" readonly matInput
         [matDatepicker]="picker" (ngModelChange)="onDateChange($event)">
     <mat-datepicker #picker></mat-datepicker>
-    <mat-icon class="position-absolute cursor-pointer" (click)="picker.open()">
+    <mat-datepicker-toggle class="d-none" #pick matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-icon class="position-absolute cursor-pointer" (click)="openDatePicker()">
         <span class="material-symbols-outlined text-secondary">
             calendar_month
         </span>
