@@ -11,7 +11,7 @@ export const plotRoutes: Routes = [
   {
     path: 'edit',
     loadComponent: () =>
-      import('./edit-plot/edit-plot.component').then(
+      import('./components/edit-plot/edit-plot.component').then(
         (m) => m.EditPlotComponent
       ),
   },

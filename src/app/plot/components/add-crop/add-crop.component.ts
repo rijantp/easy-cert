@@ -6,10 +6,10 @@ import {
   ViewChild,
   Input,
 } from '@angular/core'
-import { CropDetailsComponent } from '../components/crop-details/crop-details.component'
+import { CropDetailsComponent } from '../crop-details/crop-details.component'
 
 import { MatButtonModule } from '@angular/material/button'
-import { CropDetails } from '../models/crop-details.type'
+import { CropDetails } from '../../models/crop-details.type'
 
 @Component({
   selector: 'app-add-crop',

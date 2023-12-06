@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCardModule } from '@angular/material/card'
-import { PlotDetailsComponent } from '../components/plot-details/plot-details.component'
-import { CropDetailsComponent } from '../components/crop-details/crop-details.component'
-import { StandardsComponent } from '../components/standards/standards.component'
+import { PlotDetailsComponent } from '../plot-details/plot-details.component'
+import { CropDetailsComponent } from '../crop-details/crop-details.component'
+import { StandardsComponent } from '../standards/standards.component'
 import { MatButtonModule } from '@angular/material/button'
 
 @Component({

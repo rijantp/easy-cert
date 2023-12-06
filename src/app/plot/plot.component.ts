@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-import { MatButtonModule } from '@angular/material/button'
-import { AddCropComponent } from './add-crop/add-crop.component'
-import { AddStandardsComponent } from './add-standards/add-standards.component'
-import { PlotStepperComponent } from './components/plot-stepper/plot-stepper.component'
-import { AddPlotComponent } from './add-plot/add-plot.component'
 import { PlotDetails } from './models/plot-details.type'
 import { CropDetails } from './models/crop-details.type'
 import { StandardDetails } from './models/standards-details.type'
+import { MatButtonModule } from '@angular/material/button'
+import { AddPlotComponent } from './components/add-plot/add-plot.component'
+import { AddStandardsComponent } from './components/add-standards/add-standards.component'
+import { AddCropComponent } from './components/add-crop/add-crop.component'
+import { PlotStepperComponent } from './components/plot-stepper/plot-stepper.component'
 
 @Component({
   selector: 'app-plot',

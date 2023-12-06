@@ -6,10 +6,10 @@ import {
   ViewChild,
   Input,
 } from '@angular/core'
-import { PlotDetailsComponent } from '../components/plot-details/plot-details.component'
+import { PlotDetailsComponent } from '../plot-details/plot-details.component'
 
 import { MatButtonModule } from '@angular/material/button'
-import { PlotDetails } from '../models/plot-details.type'
+import { PlotDetails } from '../../models/plot-details.type'
 
 @Component({
   selector: 'app-add-plot',
