@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewChild,
+  inject,
   signal,
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
@@ -15,6 +16,7 @@ import { PlotDetails } from '../../models/plot-details.type'
 import { PlotEnum } from '../../constants/plot.enum'
 import { CropDetails } from '../../models/crop-details.type'
 import { StandardDetails } from '../../models/standards-details.type'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-edit-plot',
@@ -46,6 +48,8 @@ export class EditPlotComponent {
 
   @ViewChild(CropDetailsComponent) cropDetailsComponent!: CropDetailsComponent
   @ViewChild(StandardsComponent) standardsComponent!: StandardsComponent
+
+  router: Router = inject(Router)
 
   onTabSelection(tab: string): void {
     this.selectedTabSig.set(tab)
@@ -93,5 +97,9 @@ export class EditPlotComponent {
   saveStandardsDetails(): void {
     this.standardsSig.set(this.standardsComponent.standardsForm.value)
     console.log(this.standardsComponent.standardsForm.value)
+  }
+
+  backToAdd(): void {
+    this.router.navigate(['plot/add'])
   }
 }
