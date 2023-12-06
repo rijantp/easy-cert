@@ -3,10 +3,10 @@
     <span>Edit Plot</span>
   </div>
   <div class="row">
-    <div class="col-md-3 d-flex flex-column">
+    <div class="col-md-3 d-flex flex-column pe-0">
       @for (tab of tabs; track tab) {
-      <div class="p-3 border edit-tab d-flex justify-content-between" [ngClass]=" {'bg-success':tab===selectedTabSig()}"
-        (click)="onTabSelection(tab)">
+      <div class="p-3 border edit-tab d-flex justify-content-between w-100"
+        [ngClass]=" {'bg-success':tab===selectedTabSig()}" (click)="onTabSelection(tab)">
         {{ tab }}
         <mat-icon>
           <span class="material-symbols-outlined" [ngClass]=" {'text-white':tab===selectedTabSig()}">
@@ -16,17 +16,43 @@
       </div>
       }
     </div>
-    <div class="col-md-9">
-      @switch (selectedTabSig()) { @case ('Plot details') {
+    <div class="col-md-9  container">
 
-      <app-edit-plot-details></app-edit-plot-details>
-      } @case ('Crop details') {
+      <div class="row bg-success-subtle p-4 text-success">
+        <div class=" col">
+          Plot Details
+        </div>
+      </div>
+      <div class="row mt-4">
 
-      <app-edit-crop-details></app-edit-crop-details>
-      } @case ('Standards') {
+        @switch (selectedTabSig()) { @case ('Plot details') {
 
-      <app-edit-standards></app-edit-standards>
-      } }
+        <app-plot-details (statusEvent)="onAutoSave($event)"></app-plot-details>
+        } @case ('Crop details') {
+
+        <app-crop-details></app-crop-details>
+        } @case ('Standards') {
+
+        <app-standards></app-standards>
+        } }
+      </div>
     </div>
+  </div>
+  <div class="row">
+    <mat-card>
+      <mat-card-content class="d-flex justify-content-between align-items-center"> <button mat-flat-button
+          color="primary">Back</button>
+        @if (isSavedSig()) {
+        <div>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3" />
+          </svg>
+          <span class="ms-1 text-dark-emphasis">Changes made will be saved automatically</span>
+        </div>}
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
