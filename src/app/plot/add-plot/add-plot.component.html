@@ -12,12 +12,13 @@
     </div>
   </div>
   <div class="row">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mtc-2">
       <button mat-button>back</button>
       <button
         [disabled]="!plotDetails.plotForm.valid"
         mat-stroked-button
         outline="fill"
+        class="stepper-next-btn"
         (click)="onNext()"
       >
         Next: crop details

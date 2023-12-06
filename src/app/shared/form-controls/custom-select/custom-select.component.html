@@ -1,0 +1,15 @@
+<div class="select position-relative ">
+  <input (click)="matSelect.open()" [(ngModel)]="inputValue" readonly [placeholder]="placeHolder" type="text"
+    class="form-control cursor-pointer" id="input" aria-describedby="input" />
+  <mat-icon class="position-absolute">
+    <span class="material-symbols-outlined text-success">
+      expand_more
+    </span>
+  </mat-icon>
+  <mat-select #matSelect [(ngModel)]="optionValue" (ngModelChange)="onOptionChange($event)" class=" position-absolute ">
+    @for (item of options; track item) {
+    <mat-option [value]="item">{{ item }}</mat-option>
+    }
+  </mat-select>
+
+</div>

@@ -22,6 +22,7 @@ import {
 import { SELECT_OPTIONS } from '../../constants/selection-options'
 import { StandardDetails } from '../../models/standards-details.type'
 import { Subject, takeUntil } from 'rxjs'
+import { CustomSelectComponent } from '../../../shared/form-controls/custom-select/custom-select.component'
 @Component({
   selector: 'app-standards',
   standalone: true,
@@ -30,6 +31,7 @@ import { Subject, takeUntil } from 'rxjs'
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    CustomSelectComponent,
   ],
   templateUrl: './standards.component.html',
   styleUrl: './standards.component.scss',
@@ -75,5 +77,9 @@ export class StandardsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.cancelSubscription$.next()
     this.cancelSubscription$.complete()
+  }
+
+  haha(): void {
+    console.log(this.standardsForm.value)
   }
 }
