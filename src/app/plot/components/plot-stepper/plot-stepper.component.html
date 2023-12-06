@@ -1,11 +1,6 @@
-<mat-vertical-stepper
-  linear="true"
-  class="plot-stepper container"
-  linear
-  #stepper
-  (selectedIndexChange)="onClick($event)"
->
-  <mat-step [completed]="true" label="Plot details"> </mat-step>
-  <mat-step [completed]="true" label="Crop details"> </mat-step>
+<mat-vertical-stepper linear="true" class="plot-stepper container" linear #stepper
+  (selectedIndexChange)="onClick($event)">
+  <mat-step [completed]="isPlotValid" label="Plot details"> </mat-step>
+  <mat-step [completed]="iscropsValid" label="Crop details"> </mat-step>
   <mat-step [completed]="isStandardsValid" label="Standards"> </mat-step>
 </mat-vertical-stepper>
