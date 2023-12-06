@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-body container-fluid">
+        <div class="row mb-4">
+          <span>Plot details</span>
+        </div>
+        <div class="row">
+          <app-plot-details class="p-0" (statusEvent)="statusEvent.emit($event)" #plotDetails
+            [plotDetailsFormValue]="plotDetailsFormValue"></app-plot-details>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="d-flex justify-content-center mtc-2">
+      <button mat-button>back</button>
+      <button [disabled]="!plotDetails.plotForm.valid" mat-stroked-button outline="fill" class="stepper-next-btn"
+        (click)="onNext()">
+        Next: crop details
+      </button>
+    </div>
+  </div>
+</div>

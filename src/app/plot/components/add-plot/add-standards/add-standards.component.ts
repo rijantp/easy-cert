@@ -8,8 +8,8 @@ import {
 } from '@angular/core'
 
 import { MatButtonModule } from '@angular/material/button'
-import { StandardsComponent } from '../standards/standards.component'
-import { StandardDetails } from '../../models/standards-details.type'
+import { StandardsComponent } from '../../standards/standards.component'
+import { StandardDetails } from '../../../models/standards-details.type'
 @Component({
   selector: 'app-add-standards',
   standalone: true,

@@ -1,36 +1,45 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Output,
-  EventEmitter,
-  ViewChild,
-  Input,
-} from '@angular/core'
-import { PlotDetailsComponent } from '../plot-details/plot-details.component'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-import { MatButtonModule } from '@angular/material/button'
 import { PlotDetails } from '../../models/plot-details.type'
+import { CropDetails } from '../../models/crop-details.type'
+import { StandardDetails } from '../../models/standards-details.type'
+import { MatButtonModule } from '@angular/material/button'
+import { AddStandardsComponent } from './add-standards/add-standards.component'
+import { AddCropComponent } from './add-crop/add-crop.component'
+import { PlotStepperComponent } from '../plot-stepper/plot-stepper.component'
+import { AddPlotDetailsComponent } from './add-plot-details/add-plot-details.component'
 
 @Component({
   selector: 'app-add-plot',
   standalone: true,
-  imports: [PlotDetailsComponent, MatButtonModule],
+  imports: [
+    MatButtonModule,
+    PlotStepperComponent,
+    AddPlotDetailsComponent,
+    AddCropComponent,
+    AddStandardsComponent,
+  ],
   templateUrl: './add-plot.component.html',
   styleUrl: './add-plot.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddPlotComponent {
-  @Input() plotDetailsFormValue?: PlotDetails
+  stepperIndex: number = 0
 
-  @Output() nextStepEvent: EventEmitter<number> = new EventEmitter<number>()
-  @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
-  @Output() formValueEvent: EventEmitter<PlotDetails> =
-    new EventEmitter<PlotDetails>()
+  isPlotValid = false
+  isCropsValid = false
+  isStandardsValid = false
 
-  @ViewChild(PlotDetailsComponent) plotDetailsComponent!: PlotDetailsComponent
+  plotValue?: PlotDetails
+  cropDetialsValue?: CropDetails[]
+  standardsValue?: StandardDetails
 
-  onNext(): void {
-    this.nextStepEvent.emit(1)
-    this.formValueEvent.emit(this.plotDetailsComponent.plotForm.value)
+  onNextStepper(index: number): void {
+    this.stepperIndex = index
+  }
+
+  onSubmit(value: StandardDetails) {
+    this.standardsValue = value
+    alert('submitted')
   }
 }
