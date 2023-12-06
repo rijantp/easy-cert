@@ -21,18 +21,13 @@
         <div class="mb-3 col-md-6">
           <label for="seedsUsed" class="form-label">
             <span class="fs-7">
-              Used seeds (kg)/seedlings (No.)/propagation material (No.)</span
-            >
+              Used seeds (kg)/seedlings (No.)/propagation material (No.)</span>
+            @if (seedsUsed.value!=='' || i===0) {
             <span class="text-danger">*</span>
+            }
           </label>
-          <input
-            formControlName="seedsUsed"
-            placeholder="Seeds used (kg)"
-            type="text"
-            class="form-control"
-            id="seedsUsed"
-            aria-describedby="seedsUsed"
-          />
+          <input formControlName="seedsUsed" #seedsUsed placeholder="Seeds used (kg)" type="text" class="form-control"
+            id="seedsUsed" aria-describedby="seedsUsed" />
         </div>
         <!-- 
         <mat-form-field appearance="outline" class="col-md-6">
@@ -43,14 +38,8 @@
           <label for="estimatedHarvest" class="form-label">
             <span class="fs-7"> Harvest estimation in kg (total)</span>
           </label>
-          <input
-            formControlName="estimatedHarvest"
-            placeholder="Harvest estimation in kg"
-            type="text"
-            class="form-control"
-            id="estimatedHarvest"
-            aria-describedby="estimatedHarvest"
-          />
+          <input formControlName="estimatedHarvest" placeholder="Harvest estimation in kg" type="text"
+            class="form-control" id="estimatedHarvest" aria-describedby="estimatedHarvest" />
         </div>
       </div>
       <div class="row">
@@ -62,14 +51,8 @@
           <label for="harvestPeriod" class="form-label">
             <span class="fs-7"> Harvest period (months)</span>
           </label>
-          <input
-            formControlName="harvestPeriod"
-            placeholder="Harvest period"
-            type="text"
-            class="form-control"
-            id="harvestPeriod"
-            aria-describedby="harvestPeriod"
-          />
+          <input formControlName="harvestPeriod" placeholder="Harvest period" type="text" class="form-control"
+            id="harvestPeriod" aria-describedby="harvestPeriod" />
         </div>
       </div>
     </div>

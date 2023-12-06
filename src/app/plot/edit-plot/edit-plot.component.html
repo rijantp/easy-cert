@@ -1,11 +1,18 @@
-Edit Plot
-
 <div class="container">
+  <div class="row mb-4">
+    <span>Edit Plot</span>
+  </div>
   <div class="row">
     <div class="col-md-3 d-flex flex-column">
       @for (tab of tabs; track tab) {
-      <div class="p-3 border edit-tab" (click)="onTabSelection(tab)">
+      <div class="p-3 border edit-tab d-flex justify-content-between" [ngClass]=" {'bg-success':tab===selectedTabSig()}"
+        (click)="onTabSelection(tab)">
         {{ tab }}
+        <mat-icon>
+          <span class="material-symbols-outlined" [ngClass]=" {'text-white':tab===selectedTabSig()}">
+            chevron_right
+          </span>
+        </mat-icon>
       </div>
       }
     </div>
