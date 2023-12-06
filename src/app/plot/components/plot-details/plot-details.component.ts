@@ -68,7 +68,7 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
     description: [''],
     latitude: [null, [Validators.required, latitudeValidator]],
     longitude: [null, [Validators.required, longitudeValidator]],
-    unAllowedApplicationsDate: [''],
+    unAllowedApplicationsDate: ['', Validators.required],
     totalSurfaceArea: ['', [Validators.pattern(/^\d+$/)]],
     usedSurface: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     conventionalArea: ['', [Validators.pattern(/^\d+$/)]],

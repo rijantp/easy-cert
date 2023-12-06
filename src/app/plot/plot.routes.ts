@@ -2,11 +2,11 @@ import { Routes } from '@angular/router'
 import { PlotComponent } from './plot.component'
 
 export const plotRoutes: Routes = [
-  { path: '', pathMatch: 'full', component: PlotComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'add' },
   {
     path: 'add',
     loadComponent: () =>
-      import('./add-plot/add-plot.component').then((m) => m.AddPlotComponent),
+      import('./plot.component').then((m) => m.PlotComponent),
   },
   {
     path: 'edit',
