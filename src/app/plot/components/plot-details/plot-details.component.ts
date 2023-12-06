@@ -29,6 +29,8 @@ import { longitudeValidator } from '../../../shared/validators/longitude.validat
 import { SELECT_OPTIONS } from '../../constants/selection-options'
 import { Subject, combineLatest, startWith, takeUntil } from 'rxjs'
 import { PlotDetails } from '../../models/plot-details.type'
+import { CustomSelectComponent } from '../../../shared/form-controls/custom-select/custom-select.component'
+import { CustomDatePickerComponent } from '../../../shared/form-controls/custom-date-picker/custom-date-picker.component'
 
 @Component({
   selector: 'app-plot-details',
@@ -41,6 +43,8 @@ import { PlotDetails } from '../../models/plot-details.type'
     MatNativeDateModule,
     MatButtonModule,
     ReactiveFormsModule,
+    CustomSelectComponent,
+    CustomDatePickerComponent,
   ],
   templateUrl: './plot-details.component.html',
   styleUrl: './plot-details.component.scss',
