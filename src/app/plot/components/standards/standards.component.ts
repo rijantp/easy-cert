@@ -21,7 +21,7 @@ import {
 } from '@angular/forms'
 import { SELECT_OPTIONS } from '../../constants/selection-options'
 import { StandardDetails } from '../../models/standards-details.type'
-import { Subject, takeUntil } from 'rxjs'
+import { Subject, debounceTime, takeUntil } from 'rxjs'
 import { CustomSelectComponent } from '../../../shared/form-controls/custom-select/custom-select.component'
 @Component({
   selector: 'app-standards',
@@ -54,7 +54,10 @@ export class StandardsComponent implements OnInit, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (changes['standardsFormValue'].currentValue) {
+      if (
+        changes['standardsFormValue'].currentValue &&
+        changes['standardsFormValue'].firstChange
+      ) {
         this.preFillFormData(changes['standardsFormValue'].currentValue)
       }
     }
@@ -62,7 +65,7 @@ export class StandardsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.standardsForm.statusChanges
-      .pipe(takeUntil(this.cancelSubscription$))
+      .pipe(takeUntil(this.cancelSubscription$), debounceTime(1000))
       .subscribe({
         next: (status: string) => {
           this.statusEvent.emit(status === 'VALID')

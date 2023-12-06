@@ -31,9 +31,6 @@ export class AddStandardsComponent {
 
   goBack(): void {
     this.nextStepEvent.emit(1)
-    // if (this.standardsComponent.standardsForm.valid) {
-    //   this.formValueEvent.emit(this.standardsComponent.standardsForm.value)
-    // }
   }
 
   onSubmit(): void {

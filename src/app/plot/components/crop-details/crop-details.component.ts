@@ -19,7 +19,7 @@ import {
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { CropDetails } from '../../models/crop-details.type'
-import { Subject, takeUntil } from 'rxjs'
+import { Subject, debounceTime, filter, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-crop-details',
@@ -34,6 +34,8 @@ export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() cropDetailsFormValue?: CropDetails[]
 
   @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
+  @Output() optionalStatusEvent: EventEmitter<boolean> =
+    new EventEmitter<boolean>()
 
   cropDetailsForm: FormGroup = this.fb.nonNullable.group({
     cropDetails: this.fb.array([]),
@@ -49,22 +51,50 @@ export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      if (changes['cropDetailsFormValue'].currentValue) {
+      if (
+        changes['cropDetailsFormValue'].currentValue &&
+        changes['cropDetailsFormValue'].firstChange
+      ) {
         this.preFillFormData(changes['cropDetailsFormValue'].currentValue)
       }
     }
   }
 
   ngOnInit(): void {
+    this.checkStepperStatus()
+    this.checkOptionalStatus()
+  }
+
+  checkStepperStatus(): void {
     this.cropDetials
       .at(0)
-      .statusChanges.pipe(takeUntil(this.cancelSubscription$))
+      .statusChanges.pipe(
+        takeUntil(this.cancelSubscription$),
+        debounceTime(1000)
+      )
       .subscribe({
         next: (status: string) => {
           this.statusEvent.emit(status === 'VALID')
-          console.log(status === 'VALID')
         },
       })
+  }
+
+  checkOptionalStatus(): void {
+    for (const iterator of [0, 1]) {
+      this.cropDetials
+        .at(iterator)
+        .statusChanges.pipe(
+          takeUntil(this.cancelSubscription$),
+          filter(() => {
+            return this.cropDetials.at(0).valid
+          })
+        )
+        .subscribe({
+          next: (status: string) => {
+            this.optionalStatusEvent.emit(status === 'VALID')
+          },
+        })
+    }
   }
 
   addCropDetails(): FormGroup {

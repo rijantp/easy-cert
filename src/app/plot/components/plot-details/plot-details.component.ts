@@ -27,7 +27,13 @@ import { OwnershipOptions } from '../../constants/ownership-options'
 import { latitudeValidator } from '../../../shared/validators/latitude.validator'
 import { longitudeValidator } from '../../../shared/validators/longitude.validator'
 import { SELECT_OPTIONS } from '../../constants/selection-options'
-import { Subject, combineLatest, startWith, takeUntil } from 'rxjs'
+import {
+  Subject,
+  combineLatest,
+  debounceTime,
+  startWith,
+  takeUntil,
+} from 'rxjs'
 import { PlotDetails } from '../../models/plot-details.type'
 import { CustomSelectComponent } from '../../../shared/form-controls/custom-select/custom-select.component'
 import { CustomDatePickerComponent } from '../../../shared/form-controls/custom-date-picker/custom-date-picker.component'
@@ -85,7 +91,10 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     this.addOwnershipControls()
     if (changes) {
-      if (changes['plotDetailsFormValue'].currentValue) {
+      if (
+        changes['plotDetailsFormValue'].currentValue &&
+        changes['plotDetailsFormValue'].firstChange
+      ) {
         this.preFillFormData(changes['plotDetailsFormValue'].currentValue)
       }
     }
@@ -126,7 +135,7 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   sendFormValidity(): void {
     this.plotForm.statusChanges
-      .pipe(takeUntil(this.cancelSubscription$))
+      .pipe(takeUntil(this.cancelSubscription$), debounceTime(1000))
       .subscribe({
         next: (status: string) => {
           this.statusEvent.emit(status === 'VALID')

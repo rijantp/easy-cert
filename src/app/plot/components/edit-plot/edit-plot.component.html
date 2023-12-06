@@ -27,13 +27,15 @@
 
         @switch (selectedTabSig()) { @case ('Plot details') {
 
-        <app-plot-details (statusEvent)="onAutoSave($event)"></app-plot-details>
+        <app-plot-details (statusEvent)="onAutoSave($event,0)"
+          [plotDetailsFormValue]="plotDetailsSig()"></app-plot-details>
         } @case ('Crop details') {
 
-        <app-crop-details></app-crop-details>
+        <app-crop-details (statusEvent)="onAutoSave($event,1)" [cropDetailsFormValue]="cropDetailsSig()"
+          (optionalStatusEvent)="onAutoSave($event,1)"></app-crop-details>
         } @case ('Standards') {
 
-        <app-standards></app-standards>
+        <app-standards [standardsFormValue]="standardsSig()" (statusEvent)="onAutoSave($event,2)"></app-standards>
         } }
       </div>
     </div>
