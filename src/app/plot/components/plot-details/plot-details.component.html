@@ -1,10 +1,7 @@
 <form [formGroup]="plotForm" class="container ">
 
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Plot name</mat-label>
-      <input formControlName="plotName" matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="plotName" class="form-label fs-7">
         <span>Plot Name</span>
@@ -13,14 +10,7 @@
       <input formControlName="plotName" placeholder="Plot name" type="text" class="form-control" id="plotName"
         aria-describedby="plotName" />
     </div>
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Ownership</mat-label>
-      <mat-select formControlName="ownership">
-        @for (item of ownershipOptions; track item) {
-        <mat-option [value]="item">{{ item }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field> -->
+
     <div class="mb-3 col-md-6">
       <label for="euOrganic" class="form-label fs-7">
         <span class="fs-7"> Ownership</span>
@@ -33,10 +23,7 @@
 
   </div>
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col">
-      <mat-label>Description</mat-label>
-      <input formControlName="description" matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col">
       <label for="description" class="form-label fs-7"> Description </label>
       <input formControlName="description" placeholder="Description" type="text" class="form-control" id="description"
@@ -44,10 +31,7 @@
     </div>
   </div>
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Latitude</mat-label>
-      <input formControlName="latitude" matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="plotName" class="form-label fs-7">
         <span>Latitude</span>
@@ -56,10 +40,7 @@
       <input formControlName="latitude" placeholder="Latitude" type="text" class="form-control" id="latitude"
         aria-describedby="latitude" />
     </div>
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Longitude</mat-label>
-      <input formControlName="longitude" matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="plotName" class="form-label fs-7">
         <span>Longitude</span>
@@ -72,19 +53,7 @@
 
   @if (plotForm.controls['ownership'].value==='rental') {
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Duration of rental contract start</mat-label>
-      <input formControlName="contractStart" matInput [matDatepicker]="contractStart" />
-      <mat-datepicker-toggle matIconSuffix [for]="contractStart"></mat-datepicker-toggle>
-      <mat-datepicker #contractStart>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>
-            Apply
-          </button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="conversionStart" class="form-label fs-7">
         <span>Duration of rental contract start</span>
@@ -92,19 +61,6 @@
       <app-custom-date-picker [placeHolder]="'Select date'" formControlName="contractStart"></app-custom-date-picker>
     </div>
 
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Duration of rental contract end</mat-label>
-      <input formControlName="contractEnd" matInput [matDatepicker]="contractEnd" />
-      <mat-datepicker-toggle matIconSuffix [for]="contractEnd"></mat-datepicker-toggle>
-      <mat-datepicker #contractEnd>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>
-            Apply
-          </button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field> -->
     <div class="mb-3 col-6">
       <label for="contractEnd" class="form-label fs-7">
         <span>Duration of rental contract end</span>
@@ -115,19 +71,7 @@
   }
 
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Last application of unallowed applications</mat-label>
-      <input formControlName="unAllowedApplicationsDate" matInput [matDatepicker]="unAllowedApplications" />
-      <mat-datepicker-toggle matIconSuffix [for]="unAllowedApplications"></mat-datepicker-toggle>
-      <mat-datepicker #unAllowedApplications>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>
-            Apply
-          </button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="plotName" class="form-label fs-7">
         <span>Last application of unallowed applications</span>
@@ -137,10 +81,6 @@
         formControlName="unAllowedApplicationsDate"></app-custom-date-picker>
     </div>
 
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Total surface area</mat-label>
-      <input formControlName="totalSurfaceArea" readonly matInput />
-    </mat-form-field> -->
 
     <div class="mb-3 col-6">
       <label for="plotName" class="form-label fs-7">
@@ -152,10 +92,7 @@
     </div>
   </div>
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Used surface organic(ha)</mat-label>
-      <input formControlName="usedSurface" matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="usedSurface" class="form-label fs-7">
         <span>Used surface organic(ha)</span>
@@ -164,10 +101,7 @@
       <input formControlName="usedSurface" placeholder="Area in ha" type="text" class="form-control" id="usedSurface"
         aria-describedby="usedSurface" />
     </div>
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Conventional surface</mat-label>
-      <input formControlName="conventionalArea" number matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="conventionalArea" class="form-label fs-7">
         <span>Used surface organic(ha)</span>
@@ -177,14 +111,7 @@
     </div>
   </div>
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Irrigation</mat-label>
-      <mat-select formControlName="irrigation">
-        @for (item of selectOptions; track item) {
-        <mat-option [value]="item">{{ item }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field> -->
+
     <div class="mb-3 col-md-6">
       <label for="Irrigation" class="form-label fs-7">
         <span class="fs-7"> Irrigation</span>
@@ -195,19 +122,7 @@
         [options]="selectOptions"></app-custom-select>
     </div>
 
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Start of conversion</mat-label>
-      <input formControlName="conversionStart" matInput [matDatepicker]="conversionStart" />
-      <mat-datepicker-toggle matIconSuffix [for]="conversionStart"></mat-datepicker-toggle>
-      <mat-datepicker #conversionStart>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>
-            Apply
-          </button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field> -->
+
     <div class="mb-3 col-6">
       <label for="conversionStart" class="form-label fs-7">
         <span>Start of conversion</span>

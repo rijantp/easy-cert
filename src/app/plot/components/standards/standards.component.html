@@ -1,28 +1,12 @@
 <form [formGroup]="standardsForm" class="container">
   <div class="row">
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>EU organic</mat-label>
-      <mat-select formControlName="euOrganic">
-        @for (item of selectOptions; track item) {
-        <mat-option [value]="item">{{ item }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field> -->
+
     <div class="mb-3 col-md-6">
       <label for="euOrganic" class="form-label">
         <span class="fs-7"> EU organic</span>
         <span class="text-danger">*</span>
       </label>
-      <!-- <select
-        id="euOrganic"
-        formControlName="euOrganic"
-        class="form-select col-md-6 custom-select"
-        aria-label="Select"
-      >
-        @for (item of selectOptions; track item) {
-        <option [value]="item">{{ item }}</option>
-        }
-      </select> -->
+
       <app-custom-select formControlName="euOrganic" [placeHolder]="'Select'"
         [options]="selectOptions"></app-custom-select>
     </div>
@@ -34,18 +18,7 @@
       </label>
       <app-custom-select formControlName="nop" [placeHolder]="'Select'" [options]="selectOptions"></app-custom-select>
     </div>
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>NOP</mat-label>
-      <mat-select formControlName="nop">
-        @for (item of selectOptions; track item) {
-        <mat-option [value]="item">{{ item }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field> -->
-    <!-- <mat-form-field appearance="outline" class="col-md-6">
-      <mat-label>Other standard</mat-label>
-      <input formControlName="otherStandards" matInput />
-    </mat-form-field> -->
+
     <div class="mb-3 col-md-6">
       <label for="otherStandards" class="form-label">
         <span class="fs-7"> Other standard</span>
