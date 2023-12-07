@@ -39,7 +39,7 @@ import { CustomSelectComponent } from '../../../shared/form-controls/custom-sele
   styleUrl: './standards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StandardsComponent implements OnInit, OnDestroy {
+export class StandardsComponent implements OnInit, OnDestroy, OnChanges {
   fb: FormBuilder = inject(FormBuilder)
   @Input() standardsFormValue?: StandardDetails
 

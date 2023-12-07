@@ -35,6 +35,6 @@ input {
   }
 }
 
-.invalid-feedback {
+div > .invalid-feedback:first-of-type {
   display: block;
 }
