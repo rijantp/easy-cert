@@ -1,4 +1,4 @@
-<div class="select position-relative ">
+<div class="select position-relative " (click)="onTouched(true)">
     <input [placeholder]="placeHolder" class="form-control" [(ngModel)]="dateValue" readonly matInput
         [matDatepicker]="picker" (ngModelChange)="onDateChange($event)">
     <mat-datepicker #picker></mat-datepicker>

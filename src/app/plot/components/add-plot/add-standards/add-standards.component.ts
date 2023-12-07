@@ -34,6 +34,8 @@ export class AddStandardsComponent {
   }
 
   onSubmit(): void {
-    this.formValueEvent.emit(this.standardsComponent.standardsForm.value)
+    this.formValueEvent.emit(
+      this.standardsComponent.standardsForm.value as StandardDetails
+    )
   }
 }

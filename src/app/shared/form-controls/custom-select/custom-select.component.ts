@@ -33,7 +33,7 @@ export class CustomSelectComponent implements ControlValueAccessor {
   @Input() disabled = false
 
   onChange = (value: string) => {}
-  onTouched = () => {}
+  onTouched = (value: boolean) => {}
 
   inputValue: string = ''
   optionValue: string = ''
@@ -56,4 +56,6 @@ export class CustomSelectComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled
   }
+
+  onInputClick(): void {}
 }

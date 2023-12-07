@@ -38,12 +38,12 @@ export class CustomDatePickerComponent implements ControlValueAccessor {
 
   zone: NgZone = inject(NgZone)
 
-  @ViewChild('pick', { read: ElementRef }) datePickera!: ElementRef<any>
+  @ViewChild('pick', { read: ElementRef }) datePicker!: ElementRef<any>
 
   dateValue?: Date
 
   onChange = (value: Date) => {}
-  onTouched = () => {}
+  onTouched = (value: boolean) => {}
 
   writeValue(value: Date): void {
     this.dateValue = value
@@ -65,7 +65,7 @@ export class CustomDatePickerComponent implements ControlValueAccessor {
 
   openDatePicker(): void {
     this.zone.runOutsideAngular(() => {
-      this.datePickera.nativeElement.click()
+      this.datePicker.nativeElement.click()
     })
   }
 }

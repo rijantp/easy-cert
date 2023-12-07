@@ -22,6 +22,22 @@
           </label>
           <input formControlName="seedsUsed" #seedsUsed placeholder="Seeds used (kg)" type="text" class="form-control"
             id="seedsUsed" aria-describedby="seedsUsed" />
+          @if (getCropFormControl(i)['seedsUsed'].touched && getCropFormControl(i)['seedsUsed'].errors) {
+          @if (getCropFormControl(i)['seedsUsed'].hasError('required') && i===0) {
+
+          <div class="invalid-feedback">
+            field is required!
+
+          </div>
+          }
+          @if (getCropFormControl(i)['seedsUsed'].hasError('pattern')) {
+
+          <div class="invalid-feedback">
+            invalid input
+
+          </div>
+          }
+          }
         </div>
 
         <div class="mb-3 col-md-6">

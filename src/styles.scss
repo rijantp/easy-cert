@@ -21,9 +21,9 @@ body {
   margin-top: 2rem;
 }
 
-.stepper-next-btn {
-  background-color: #e0e0e0 !important;
-}
+// .stepper-next-btn {
+//   background-color: #e0e0e0 !important;
+// }
 
 input {
   height: 3rem;
@@ -33,4 +33,8 @@ input {
   svg {
     color: #01a747;
   }
+}
+
+.invalid-feedback {
+  display: block;
 }

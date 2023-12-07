@@ -4,12 +4,12 @@ export type PlotDetails = {
   description: string
   latitude: string
   longitude: string
-  unAllowedApplicationsDate: Date
+  unAllowedApplicationsDate: Date | string
   totalSurfaceArea: string
   usedSurface: string
   conventionalArea: string
   irrigation: string
-  conversionStart: Date
-  contractStart?: Date
-  contractEnd?: Date
+  conversionStart: Date | string
+  contractStart?: Date | string
+  contractEnd?: Date | string
 }

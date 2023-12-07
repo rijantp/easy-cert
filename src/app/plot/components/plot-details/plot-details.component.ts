@@ -11,6 +11,7 @@ import {
   SimpleChanges,
 } from '@angular/core'
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -68,24 +69,51 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   cancelSubscription$: Subject<void> = new Subject<void>()
 
-  plotForm: FormGroup = this.fb.nonNullable.group({
-    plotName: ['', [Validators.required]],
-    ownership: ['', [Validators.required]],
-    description: [''],
-    latitude: [null, [Validators.required, latitudeValidator]],
-    longitude: [null, [Validators.required, longitudeValidator]],
-    unAllowedApplicationsDate: ['', Validators.required],
-    totalSurfaceArea: ['', [Validators.pattern(/^\d+$/)]],
-    usedSurface: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-    conventionalArea: ['', [Validators.pattern(/^\d+$/)]],
-    irrigation: ['', [Validators.required]],
-    conversionStart: ['', [Validators.required]],
+  plotForm: FormGroup<PlotForm> = this.fb.nonNullable.group<PlotForm>({
+    plotName: this.fb.nonNullable.control('', [Validators.required]),
+
+    ownership: this.fb.nonNullable.control('', [Validators.required]),
+
+    description: this.fb.nonNullable.control<string>(''),
+
+    latitude: this.fb.nonNullable.control('', [
+      Validators.required,
+      Validators.pattern(/^\d+$/),
+      latitudeValidator,
+    ]),
+    longitude: this.fb.nonNullable.control('', [
+      Validators.required,
+      Validators.pattern(/^\d+$/),
+      longitudeValidator,
+    ]),
+    unAllowedApplicationsDate: this.fb.nonNullable.control('', [
+      Validators.required,
+    ]),
+
+    totalSurfaceArea: this.fb.nonNullable.control('', [
+      Validators.pattern(/^\d+$/),
+    ]),
+    usedSurface: this.fb.nonNullable.control('', [
+      Validators.required,
+      Validators.pattern(/^\d+$/),
+    ]),
+
+    conventionalArea: this.fb.nonNullable.control('', [
+      Validators.pattern(/^\d+$/),
+    ]),
+
+    irrigation: this.fb.nonNullable.control('', [Validators.required]),
+
+    conversionStart: this.fb.nonNullable.control('', [Validators.required]),
   })
 
   ngOnInit(): void {
     this.addOwnershipControls()
     this.getTotalSurfaceArea()
     this.sendFormValidity()
+  }
+  get formGroup(): { [key: string]: AbstractControl } {
+    return this.plotForm.controls
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -114,8 +142,8 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
   toggleRentalControls(value: string): void {
     if (value === OwnershipOptions.RENTAL) {
-      this.plotForm.addControl('contractStart', new FormControl(''))
-      this.plotForm.addControl('contractEnd', new FormControl(''))
+      this.plotForm.addControl('contractStart', this.fb.nonNullable.control(''))
+      this.plotForm.addControl('contractEnd', this.fb.nonNullable.control(''))
     } else {
       this.plotForm.removeControl('contractStart')
       this.plotForm.removeControl('contractEnd')
@@ -133,7 +161,7 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe({
         next: ([a, b]) => {
           this.plotForm.controls['totalSurfaceArea'].setValue(
-            Number(a) + Number(b)
+            `${Number(a) + Number(b)}`
           )
         },
       })
@@ -157,4 +185,20 @@ export class PlotDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.cancelSubscription$.next()
     this.cancelSubscription$.complete()
   }
+}
+
+type PlotForm = {
+  plotName: FormControl<string>
+  ownership: FormControl<string>
+  description: FormControl<string>
+  latitude: FormControl<string>
+  contractStart?: FormControl<Date | string>
+  contractEnd?: FormControl<Date | string>
+  longitude: FormControl<string>
+  unAllowedApplicationsDate: FormControl<Date | string>
+  totalSurfaceArea: FormControl<string>
+  usedSurface: FormControl<string>
+  conventionalArea: FormControl<string>
+  irrigation: FormControl<string>
+  conversionStart: FormControl<string | Date>
 }

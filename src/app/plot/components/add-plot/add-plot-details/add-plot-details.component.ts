@@ -31,6 +31,8 @@ export class AddPlotDetailsComponent {
 
   onNext(): void {
     this.nextStepEvent.emit(1)
-    this.formValueEvent.emit(this.plotDetailsComponent.plotForm.value)
+    this.formValueEvent.emit(
+      this.plotDetailsComponent.plotForm.value as PlotDetails
+    )
   }
 }

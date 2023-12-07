@@ -78,13 +78,15 @@ export class EditPlotComponent {
   }
 
   savePlotDetails(): void {
-    this.plotDetailsSig.set(this.plotDetailsComponent.plotForm.value)
+    this.plotDetailsSig.set(
+      this.plotDetailsComponent.plotForm.value as PlotDetails
+    )
     console.log(this.plotDetailsComponent.plotForm.value)
   }
 
   saveCropDetails(): void {
-    let cropDetailsList: CropDetails[] =
-      this.cropDetailsComponent.cropDetailsForm.value.cropDetails
+    let cropDetailsList: CropDetails[] = this.cropDetailsComponent
+      .cropDetailsForm.value.cropDetails as CropDetails[]
     cropDetailsList = cropDetailsList.filter(
       (value: CropDetails, index: number) => {
         return this.cropDetailsComponent.cropDetials.at(index).valid
@@ -95,7 +97,9 @@ export class EditPlotComponent {
   }
 
   saveStandardsDetails(): void {
-    this.standardsSig.set(this.standardsComponent.standardsForm.value)
+    this.standardsSig.set(
+      this.standardsComponent.standardsForm.value as StandardDetails
+    )
     console.log(this.standardsComponent.standardsForm.value)
   }
 

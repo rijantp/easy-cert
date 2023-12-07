@@ -5,5 +5,5 @@ export function longitudeValidator(
 ): null | ValidationErrors {
   const value = control.value
 
-  return value >= -180 && value <= 180 ? null : { invalidLatitude: true }
+  return value >= -180 && value <= 180 ? null : { invalidLongitude: true }
 }

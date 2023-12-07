@@ -36,8 +36,8 @@ export class AddCropComponent {
   }
 
   sendCropDetials(): void {
-    let cropDetailsList: CropDetails[] =
-      this.cropDetailsComponent.cropDetailsForm.value.cropDetails
+    let cropDetailsList: CropDetails[] = this.cropDetailsComponent
+      .cropDetailsForm.value.cropDetails as CropDetails[]
     cropDetailsList = cropDetailsList.filter(
       (value: CropDetails, index: number) => {
         return this.cropDetailsComponent.cropDetials.at(index).valid

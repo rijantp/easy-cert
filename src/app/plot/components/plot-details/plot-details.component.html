@@ -7,8 +7,17 @@
         <span>Plot Name</span>
         <span class="text-danger">*</span>
       </label>
-      <input formControlName="plotName" placeholder="Plot name" type="text" class="form-control" id="plotName"
+      <input formControlName="plotName" placeholder="Plot name" type="text" class="form-control " id="plotName"
         aria-describedby="plotName" />
+      @if (formGroup['plotName'].touched && formGroup['plotName'].errors) {
+      @if (formGroup['plotName'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      }
     </div>
 
     <div class="mb-3 col-md-6">
@@ -19,6 +28,15 @@
 
       <app-custom-select formControlName="ownership" [placeHolder]="'Ownership'"
         [options]="ownershipOptions"></app-custom-select>
+      @if (formGroup['ownership'].touched && formGroup['ownership'].errors) {
+      @if (formGroup['ownership'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      }
     </div>
 
   </div>
@@ -39,6 +57,29 @@
       </label>
       <input formControlName="latitude" placeholder="Latitude" type="text" class="form-control" id="latitude"
         aria-describedby="latitude" />
+      @if (formGroup['latitude'].touched && formGroup['latitude'].errors) {
+      @if (formGroup['latitude'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      @if (formGroup['latitude'].hasError('pattern')) {
+
+      <div class="invalid-feedback">
+        please type a number
+
+      </div>
+      }
+      @if (formGroup['latitude'].hasError('invalidLatitude')) {
+
+      <div class="invalid-feedback">
+        invalid value
+
+      </div>
+      }
+      }
     </div>
 
     <div class="mb-3 col-6">
@@ -48,6 +89,29 @@
       </label>
       <input formControlName="longitude" placeholder="Longitude" type="text" class="form-control" id="longitude"
         aria-describedby="longitude" />
+      @if (formGroup['longitude'].touched && formGroup['longitude'].errors) {
+      @if (formGroup['longitude'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      @if (formGroup['longitude'].hasError('pattern')) {
+
+      <div class="invalid-feedback">
+        please type a number
+
+      </div>
+      }
+      @if (formGroup['longitude'].hasError('invalidLongitude')) {
+
+      <div class="invalid-feedback">
+        invalid value
+
+      </div>
+      }
+      }
     </div>
   </div>
 
@@ -79,6 +143,15 @@
       </label>
       <app-custom-date-picker [placeHolder]="'Select date'"
         formControlName="unAllowedApplicationsDate"></app-custom-date-picker>
+      @if (formGroup['unAllowedApplicationsDate'].touched && formGroup['unAllowedApplicationsDate'].errors) {
+      @if (formGroup['unAllowedApplicationsDate'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      }
     </div>
 
 
@@ -100,6 +173,15 @@
       </label>
       <input formControlName="usedSurface" placeholder="Area in ha" type="text" class="form-control" id="usedSurface"
         aria-describedby="usedSurface" />
+      @if (formGroup['usedSurface'].touched && formGroup['usedSurface'].errors) {
+      @if (formGroup['usedSurface'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      }
     </div>
 
     <div class="mb-3 col-6">
@@ -120,6 +202,15 @@
 
       <app-custom-select formControlName="irrigation" [placeHolder]="'Select'"
         [options]="selectOptions"></app-custom-select>
+      @if (formGroup['irrigation'].touched && formGroup['irrigation'].errors) {
+      @if (formGroup['irrigation'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      }
     </div>
 
 
@@ -129,6 +220,15 @@
         <span class="text-danger">*</span>
       </label>
       <app-custom-date-picker [placeHolder]="'Select date'" formControlName="conversionStart"></app-custom-date-picker>
+      @if (formGroup['conversionStart'].touched && formGroup['conversionStart'].errors) {
+      @if (formGroup['conversionStart'].hasError('required')) {
+
+      <div class="invalid-feedback">
+        field is required!
+
+      </div>
+      }
+      }
     </div>
   </div>
 </form>

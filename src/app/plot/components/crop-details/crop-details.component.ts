@@ -10,8 +10,10 @@ import {
   OnDestroy,
 } from '@angular/core'
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -37,19 +39,26 @@ export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Output() optionalStatusEvent: EventEmitter<boolean> =
     new EventEmitter<boolean>()
 
-  cropDetailsForm: FormGroup = this.fb.nonNullable.group({
-    cropDetails: this.fb.array([]),
-  })
+  cropDetailsForm: FormGroup<CropDetailsForm> =
+    this.fb.nonNullable.group<CropDetailsForm>({
+      cropDetails: this.fb.nonNullable.array<FormGroup<CropDetailsArrayForm>>(
+        []
+      ),
+    })
 
   cancelSubscription$: Subject<void> = new Subject<void>()
 
   constructor() {
-    this.cropDetials.push(this.addCropDetails())
-    this.cropDetials.push(this.addCropDetails())
-    this.cropDetials.push(this.addCropDetails())
+    for (let index = 0; index < 3; index++) {
+      this.cropDetials.push(this.addCropDetails())
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // const { cropDetailsFormValue } = changes;
+    // if(cropDetailsFormValue.currentValue && cropDetailsFormValue.firstChange){
+    //   this.preFillFormData(cropDetailsFormValue.currentValue)
+    // }
     if (changes) {
       if (
         changes['cropDetailsFormValue'].currentValue &&
@@ -105,8 +114,12 @@ export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
     })
   }
 
-  get cropDetials(): FormArray {
-    return this.cropDetailsForm.controls['cropDetails'] as FormArray
+  get cropDetials(): FormArray<FormGroup<CropDetailsArrayForm>> {
+    return this.cropDetailsForm.controls['cropDetails']
+  }
+
+  getCropFormControl(index: number): { [key: string]: AbstractControl } {
+    return this.cropDetials.at(index).controls
   }
 
   preFillFormData(formValue: CropDetails[]): void {
@@ -119,4 +132,14 @@ export class CropDetailsComponent implements OnInit, OnChanges, OnDestroy {
     this.cancelSubscription$.next()
     this.cancelSubscription$.complete()
   }
+}
+
+type CropDetailsForm = {
+  cropDetails: FormArray<FormGroup<CropDetailsArrayForm>>
+}
+
+type CropDetailsArrayForm = {
+  seedsUsed: FormControl<string>
+  estimatedHarvest: FormControl<string>
+  harvestPeriod: FormControl<string>
 }

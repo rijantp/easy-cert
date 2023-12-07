@@ -1,6 +1,6 @@
 <div class="select position-relative ">
-  <input (click)="matSelect.open()" [(ngModel)]="inputValue" readonly [placeholder]="placeHolder" type="text"
-    class="form-control cursor-pointer" id="input" aria-describedby="input" />
+  <input (click)="matSelect.open();onTouched(true);" [(ngModel)]="inputValue" readonly [placeholder]="placeHolder"
+    type="text" class="form-control cursor-pointer" id="input" aria-describedby="input" />
   <mat-icon class="position-absolute">
     <span class="material-symbols-outlined text-success">
       expand_more

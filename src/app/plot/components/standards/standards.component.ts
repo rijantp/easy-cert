@@ -14,7 +14,9 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import {
+  AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -46,11 +48,12 @@ export class StandardsComponent implements OnInit, OnDestroy {
   @Output() statusEvent: EventEmitter<boolean> = new EventEmitter<boolean>()
   selectOptions = SELECT_OPTIONS
 
-  standardsForm: FormGroup = this.fb.nonNullable.group({
-    euOrganic: ['', [Validators.required]],
-    nop: ['', [Validators.required]],
-    otherStandards: [''],
-  })
+  standardsForm: FormGroup<StandardsForm> =
+    this.fb.nonNullable.group<StandardsForm>({
+      euOrganic: this.fb.nonNullable.control('', [Validators.required]),
+      nop: this.fb.nonNullable.control('', [Validators.required]),
+      otherStandards: this.fb.nonNullable.control(''),
+    })
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
@@ -76,13 +79,17 @@ export class StandardsComponent implements OnInit, OnDestroy {
   preFillFormData(formValue: StandardDetails): void {
     this.standardsForm.setValue(formValue)
   }
-
+  get formGroup(): { [key in keyof StandardsForm]: AbstractControl } {
+    return this.standardsForm.controls
+  }
   ngOnDestroy(): void {
     this.cancelSubscription$.next()
     this.cancelSubscription$.complete()
   }
+}
 
-  haha(): void {
-    console.log(this.standardsForm.value)
-  }
+type StandardsForm = {
+  euOrganic: FormControl<string>
+  nop: FormControl<string>
+  otherStandards: FormControl<string>
 }
